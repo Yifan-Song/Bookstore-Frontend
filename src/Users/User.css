@@ -1,0 +1,17 @@
+.information{
+    float: left;
+    margin-left: 530px;
+    margin-top: 50px;
+}
+
+.icon{
+    float: left;
+    margin-top: 100px;
+    margin-left: 600px;
+}
+
+.OrderButton{
+    float: left;
+    margin-top: 50px;
+    margin-left: 600px;
+}

@@ -1,0 +1,33 @@
+.book{
+    height: 400px;
+    width: 270px;
+    margin-left: 80px;
+    margin-top: 10px;
+}
+
+.card1{
+    float: right;
+    margin-right: 580px;
+    margin-top: 80px;
+}
+
+.card2{
+    margin-top: 50px;
+    margin-left: 80px;
+}
+
+.card3{
+    margin-top: 50px;
+    margin-left: 80px;
+}
+
+.bookTitle{
+    font-size: 30px;
+    margin-top: 30px;
+    margin-left: 90px;
+}
+
+.addToCartButton{
+    float: right;
+    margin-right: 100px;
+}

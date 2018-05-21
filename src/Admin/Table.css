@@ -1,0 +1,69 @@
+@import '~antd/dist/antd.css';
+
+.search {
+    width: 500px;
+    margin-left: 20px;
+    float: left;
+}
+
+.add-btn {
+    width: 130px;
+    height: 40px;
+    margin-right: 40px;
+    margin-left: 790px;
+}
+
+.table {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    margin-left: 80px;
+    margin-right: 50px;
+    text-align: left;
+    alignment: left;
+}
+
+.search-input{
+    width: 200px;
+    height: 40px;
+    margin-left: 80px;
+    border-radius: 6px;
+    background: #fff;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+    float: left;
+}
+
+.search-button{
+    width:80px;
+    height: 40px;
+    float: left;
+}
+
+
+.highlight {
+    color: #f50;
+}
+
+.BookTable-title{
+    margin-left: 80px;
+    margin-bottom: 30px;
+}
+
+.settingIcon{
+    margin-left: 80px;
+    margin-top: 60px;
+    animation: App-logo-spin infinite 20s linear;
+}
+
+.export-btn1{
+    width: 130px;
+    height: 40px;
+    margin-left: 80px;
+    margin-bottom: 30px;
+}
+
+.export-btn2{
+    width: 130px;
+    height: 40px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}

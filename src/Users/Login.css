@@ -1,0 +1,35 @@
+.firstLine {
+    margin-top: 30px;
+    margin-left: 550px;
+    margin-right: 550px;
+}
+
+.secondLine {
+    margin-left: 550px;
+    margin-right: 550px;
+}
+
+.button{
+    margin-left: 550px;
+    margin-right: 550px;
+}
+
+.Login-title{
+    font-size: 4em;
+    margin-top: 30px;
+    color: aliceblue;
+}
+
+.userIcon{
+    margin-top: 100px;
+    margin-left: 620px;
+}
+
+.login-form-button{
+    margin-right: 50px;
+}
+
+.BackButton{
+    float: right;
+    margin-right: 50px;
+}
