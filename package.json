@@ -2,7 +2,7 @@
   "name": "bookstore",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/Yifan-Song/Bookstore-Frontend/",
+  "homepage": "https://yifan-song.github.io/Bookstore-Frontend/",
   "dependencies": { 
     "antd": "^3.3.1",
     "json2csv": "^4.0.2",
