@@ -1,17 +1,21 @@
-.information{
-    float: left;
-    margin-left: 530px;
+.informationCard{
+    margin: auto;
     margin-top: 50px;
 }
 
 .icon{
-    float: left;
+    margin:auto;
     margin-top: 100px;
-    margin-left: 600px;
 }
 
-.OrderButton{
-    float: left;
-    margin-top: 50px;
-    margin-left: 600px;
+.orderButton{
+    height: 40px;
+    width: 150px;
+    margin-top: 20px;
+}
+
+.favoriteButton{
+    height: 40px;
+    width: 150px;
+    margin-top: 20px;
 }

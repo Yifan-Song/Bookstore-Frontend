@@ -2,7 +2,7 @@
  * Created by Bo on 4/2/2018.
  */
 import React, { Component } from 'react';
-import { Table, Input, Button, Popconfirm ,Icon } from 'antd';
+import { Table, Input, Button, Popconfirm ,Icon, message } from 'antd';
 import './BookList.css';
 import Cookies from 'universal-cookie'
 import {Link } from 'react-router-dom';
@@ -35,7 +35,7 @@ class BookList extends Component {
         this.columns = [{
             title: 'BookName',
             dataIndex: 'bookname',
-            width: '20%',
+            width: '10%',
             filteredValue: this.state.searchText || null,
             onFilter: (filteredValue, record) => record.name.includes(filteredValue),
             sorter: (a, b) => b.bookname.length - a.bookname.length,
@@ -43,21 +43,33 @@ class BookList extends Component {
         },{
             title: 'Author',
             dataIndex: 'author',
-            width: '20%',
+            width: '10%',
             sorter: (a, b) => b.author.length - a.author.length,
             render: (text, record) => this.renderColumns(text, record, 'author'),
         },{
             title: 'Year',
             dataIndex: 'year',
-            width: '15%',
+            width: '10%',
             sorter: (a, b) => b.year - a.year,
             render: (text, record) => this.renderColumns(text, record, 'year'),
         },{
             title: 'Price(¥)',
             dataIndex: 'price',
-            width: '15%',
+            width: '10%',
             sorter: (a, b) => b.price - a.price,
             render: (text, record) => this.renderColumns(text, record, 'price'),
+        }, {
+            title: 'Sales',
+            dataIndex: 'salesVolume',
+            width: '10%',
+            sorter: (a, b) => b.salesVolume - a.salesVolume,
+            render: (text, record) => this.renderColumns(text, record, 'salesVolume'),
+        }, {
+            title: 'Stock',
+            dataIndex: 'stock',
+            width: '10%',
+            sorter: (a, b) => b.stock - a.stock,
+            render: (text, record) => this.renderColumns(text, record, 'stock'),
         }, {
             title: '详情',
             dataIndex: 'edit',
@@ -65,7 +77,14 @@ class BookList extends Component {
             render: (text, record) => {
                 const { editable } = record;
                 return (
-                    <Link to={'/Book'}>查看书籍详情</Link>
+                    <Link to={{
+                        pathname : '/Book' ,
+                        state : {
+                            id: record.bookid,
+                        }
+                    }}>
+                    查看书籍详情
+                    </Link>
                 );
             },
         },{
@@ -74,7 +93,7 @@ class BookList extends Component {
             width: '15%',
             render: (text, record) => {
                 return (
-                    this.state.dataSource.length > 1 ?
+                    this.state.dataSource.length >= 1 ?
                         (
                             <Popconfirm title="确定将本书添加到购物车?" onConfirm={() => this.addToCart(record)}>
                                 <a>添加到购物车</a>
@@ -111,7 +130,7 @@ class BookList extends Component {
                 (result) => {
                     console.log("Cartitem added:")
                     console.log(result)
-                    alert("添加购物车成功！")
+                    message.success('添加购物车成功！');
                 }
             )
     }
@@ -127,7 +146,6 @@ class BookList extends Component {
             .then(
                 (result) => {
                     console.log("books fetched:")
-                    console.log(result)
                     this.setState({dataSource: result})
                 }
             )

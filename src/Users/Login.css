@@ -22,14 +22,23 @@
 
 .userIcon{
     margin-top: 100px;
-    margin-left: 620px;
+    margin-left: 46%;
 }
 
 .login-form-button{
-    margin-right: 50px;
+    margin:auto;
+    width: 100%;
 }
 
 .BackButton{
     float: right;
     margin-right: 50px;
+}
+
+.remeber-check-box{
+    margin-left : 30%;
+}
+
+.login-form-forgot{
+    margin-left : 13%;
 }

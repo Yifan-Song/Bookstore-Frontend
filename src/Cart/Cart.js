@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Table, Input, Button, Popconfirm ,Icon } from 'antd';
+import { Table, Input, Button, Popconfirm ,Icon,message } from 'antd';
 import './Cart.css';
 import Cookies from "universal-cookie";
 
@@ -15,27 +15,6 @@ const data = [{
     price: 55,
     author: 'J.K. Rowling',
     year: 2000,
-    number: 2,
-}, {
-    key: '2',
-    bookname: 'Le Petit Prince',
-    price: 22.8,
-    author: 'Antoine de Saint-Exupéry',
-    year: 1942,
-    number: 3,
-}, {
-    key: '3',
-    bookname: 'Les Misérables',
-    price: 32.5,
-    author: 'Victor Hugo',
-    year: 1862,
-    number: 1,
-}, {
-    key: '4',
-    bookname: 'Sophies World',
-    price: 25.6,
-    author: 'Jostein Gaarder',
-    year: 1991,
     number: 2,
 }];
 
@@ -147,7 +126,7 @@ class Cart extends Component {
             width: '15%',
             render: (text, record) => {
                 return (
-                    this.state.dataSource.length > 1 ?
+                    this.state.dataSource.length >= 1 ?
                         (
                             <Popconfirm title="Sure to delete?" onConfirm={() => this.onDelete(record.key)}>
                                 <a>Delete</a>
@@ -210,7 +189,7 @@ class Cart extends Component {
                     }
                 )
         }
-        alert("购买成功！");
+        message.success('购买成功！');
         window.location.href = "http://localhost:3000"
     }
 

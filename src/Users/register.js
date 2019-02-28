@@ -3,7 +3,7 @@
  */
 
 import React, { Component } from 'react';
-import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Icon, Cascader, Select, message, Checkbox, Button, AutoComplete } from 'antd';
 import './register.css'
 
 const FormItem = Form.Item;
@@ -74,7 +74,7 @@ class RegistrationForm extends React.Component {
             )
             .then(
                 (result) =>{
-                    alert("Register successfully! You can login now.")
+                    message.success("Register successfully! You can login now.")
                     console.log(result)
                 })
         window.location.href = "http://localhost:3000/#/Login"

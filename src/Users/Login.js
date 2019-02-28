@@ -2,7 +2,7 @@
  * Created by Bo on 4/1/2018.
  */
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 import {Link } from 'react-router-dom';
 import './Login.css'
 import Cookies from 'universal-cookie'
@@ -49,7 +49,7 @@ class NormalLoginForm extends React.Component {
             .then(
                 (result) =>{
                     if(result.status === "ok") {
-                        alert("Login successful!")
+                        message.success("Login successful!")
                         this.LoginSuccessHandler(result.user.userid, result.role)
                         this.setState(
                             {userid: result.user.userid,
@@ -57,8 +57,9 @@ class NormalLoginForm extends React.Component {
                             login:true,
                         })
                     }
-                    else
-                        alert("Login failed!")
+                    else{
+                        message.error("Login failed!")
+                    }
                     console.log(result)
                 })
     }
@@ -88,19 +89,30 @@ class NormalLoginForm extends React.Component {
                             <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
                         )}
                     </FormItem>
+                    
                     <FormItem className={'button'}>
-                        {getFieldDecorator('remember', {
-                            valuePropName: 'checked',
-                            initialValue: true,
-                        })(
-                            <Checkbox>Remember me</Checkbox>
-                        )}
-                        <a className="login-form-forgot" href="">Forgot password</a>
                         <Button type="primary" htmlType="submit" className="login-form-button">
                             Log in
                         </Button>
-                        Or <Link to={'/Register'}><a href="">register now!</a></Link>
+                        <br/>
+                        
+                        <div className = "remeber-check-box">
+                            {getFieldDecorator('remember', {
+                                valuePropName: 'checked',
+                                initialValue: true,
+                            })(
+                                <Checkbox> Remember me </Checkbox>
+                            )}
+                            <br/>
+                        </div>
+
+                        <div className = "bottom-options">
+                            <a className="login-form-forgot" href="">Forgot password   </a>
+                            ___Or___ <Link to={'/Register'}><a href="">   register now!</a></Link>
+                         </div>
+
                     </FormItem>
+
                 </Form>
             </div>
         );

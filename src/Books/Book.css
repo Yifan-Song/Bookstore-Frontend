@@ -1,24 +1,42 @@
-.book{
-    height: 400px;
-    width: 270px;
-    margin-left: 80px;
-    margin-top: 10px;
+.bookImage{
+    float: left; 
+    margin-left: 0%;
+    margin-top: 3%;
+    height: 300px;
+    width: 200px;
 }
 
 .card1{
+    margin: auto;
+    width: 80%;
+}
+
+.card1-1{
     float: right;
-    margin-right: 580px;
-    margin-top: 80px;
+    margin-right: 0%;
+    margin-top: 3%;
+}
+
+.addToCartButton{
+    float: right;
+    height: 60px;
+    width: 180px;
+    margin-right: 10%;
+    margin-top: 24%;
+}
+
+.addToFavoriteButton{
+    float: right;
+    height: 60px;
+    width: 180px;
+    margin-right: 5%;
+    margin-top: 24%;
 }
 
 .card2{
-    margin-top: 50px;
-    margin-left: 80px;
-}
-
-.card3{
-    margin-top: 50px;
-    margin-left: 80px;
+    margin: auto;
+    margin-top: 3%;
+    width: 80%;
 }
 
 .bookTitle{
@@ -27,7 +45,4 @@
     margin-left: 90px;
 }
 
-.addToCartButton{
-    float: right;
-    margin-right: 100px;
-}
+
