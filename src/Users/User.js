@@ -65,10 +65,10 @@ class User extends Component {
                 </Row>
                 <Row>
                     <Col span={4}  offset={8}>
-                        <Link to={'/Orders'}><Button type="primary" className="orderButton">History Orders</Button></Link>
+                        <Link to={'/HistoryOrders'}><Button type="primary" className="orderButton">History Orders</Button></Link>
                     </Col>
                     <Col span={4} offset={2}>
-                        <Link to={'/Orders'}><Button type="primary" className="favoriteButton">Favorite</Button></Link> 
+                        <Link to={'/HistoryOrders'}><Button type="primary" className="favoriteButton">Favorite</Button></Link> 
                     </Col>
                 </Row>
                 <br/>

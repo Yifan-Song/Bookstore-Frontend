@@ -2,7 +2,7 @@
  * Created by Bo on 4/2/2018.
  */
 import React, { Component } from 'react';
-import { Card,Button,Popconfirm,message } from 'antd';
+import { Card,Button,Popconfirm,message,Row,Col } from 'antd';
 import './Book.css';
 import Cookies from 'universal-cookie'
 
@@ -16,6 +16,11 @@ const tabListNoTitle = [{
     tab: '作者简介',
 }];
 
+
+function cancel(e) {
+    message.error('未添加购物车');
+  }
+  
 class Book extends Component{
     constructor(props) {
         super(props);
@@ -108,15 +113,7 @@ class Book extends Component{
         this.setState({ [type]: key });
     }
 
-    handleAddToCart = () =>{
-        render: (text, record) => {
-            return (
-                <Popconfirm title="确定将本书添加到购物车?" onConfirm={() => this.addToCart()}>
-                    <a>添加到购物车</a>
-                </Popconfirm>
-            );
-        }
-    }
+
 
     render(){
 
@@ -124,16 +121,23 @@ class Book extends Component{
             book: <p>{this.state.bookAbstract}</p>,
             author: <p>{this.state.authorAbstract}</p>,
         };
+        var url = "url(" + this.state.imagePath
         return(
-        <div style={{ background: '#ECECEC', padding: '30px',height:'100%'  }}>
+        <div className = "BookApp" style={{backgroundImage: url}}>
 
             <Card title={this.state.bookname} bordered={false} className = "card1">
                 <img src={this.state.imagePath} className="bookImage"/>
-                <Button type="primary" onClick={this.addToCart} className="addToCartButton">添加到购物车</Button>
-                <Button type="primary" onClick={this.handleAddToCart} className="addToFavoriteButton">添加到收藏夹</Button>
-                
+
+                <Popconfirm  title="确定将本书添加到购物车?" onConfirm={this.addToCart} onCancel={cancel} okText="Yes" cancelText="No">
+                    <Button type="primary" className="addToCartButton">添加到购物车</Button>
+                </Popconfirm>
+
+                <Popconfirm  title="确定将本书添加到购物车?" onConfirm={this.addToCart} onCancel={cancel} okText="Yes" cancelText="No">
+                    <Button type="primary" className="addToFavoriteButton">添加到收藏夹</Button>
+                </Popconfirm>
+                              
                 <Card bordered={false} style={{ width: 300 }} className = "card1-1">
-                    <p>书籍信息: </p>
+                    <strong>书籍信息: </strong>
                     <p>作者: {this.state.author}</p>
                     <p>出版社: {this.state.press}</p>
                     <p>出版年: {this.state.year}</p>

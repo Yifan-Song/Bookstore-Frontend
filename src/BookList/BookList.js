@@ -243,7 +243,7 @@ class BookList extends Component {
     render() {
         const columns = this.columns;
         return(
-            <div>
+            <div className="BookListApp">
                 <header><Icon type="book" className="bookIcon" style={{ fontSize: 60 }} /></header>,
                 <h1 className="BookTable-title">BookList</h1>
                 <Input

@@ -30,7 +30,7 @@ class Head extends React.Component {
                     <div>
                         <Menu
                             classname = 'menu'
-                            theme = 'light'
+                            theme="dark"
                             onClick={this.handleClick}
                             selectedKeys={[this.state.current]}
                             mode="horizontal"
@@ -64,9 +64,15 @@ class Head extends React.Component {
                             <Menu.Item key="bookList">
                                 <Link to={'/BookList'}><Icon type="book"/>书库</Link>
                             </Menu.Item>
+
                             <Menu.Item key="shopping-cart">
                                 <Link to={'/Cart'}><Icon type="shopping-cart"/>购物车</Link>
                             </Menu.Item>
+
+                            <Menu.Item key="order-to-pay">
+                                <Link to={'/Order'}><Icon type="dollar"/>待支付订单</Link>
+                            </Menu.Item>
+
                             <Menu.Item key="manage">
                                 <Link to={'/Admin'}><Icon type="setting"/>管理</Link>
                             </Menu.Item>
@@ -98,8 +104,11 @@ class Head extends React.Component {
                             <Menu.Item key="shopping-cart">
                                 <Link to={'/Cart'}><Icon type="shopping-cart"/>购物车</Link>
                             </Menu.Item>
+                            <Menu.Item key="order-to-pay">
+                                <Link to={'/Order'}><Icon type="pay-circle" />待支付订单</Link>
+                            </Menu.Item>
                             <Menu.Item key="logout">
-                                <Icon type="logout"onClick={this.handleLogout}>注销</Icon>
+                                <Icon type="logout" style = {{color:"red"}} onClick={this.handleLogout}/>注销
                             </Menu.Item>
                         </Menu></div>
                 );

@@ -22,9 +22,9 @@ class App extends Component {
             bookmarkcontent: '"我喜爱一切不彻底的事物。琥珀里的时间,微暗的火,一生都在半途而废,一生都怀抱热望。"——张定浩',   
             imagePath: [],
         };
-        this.fetchBookImage(0);
         this.fetchBookImage(1);
         this.fetchBookImage(2);
+        this.fetchBookImage(3);
     }
 
     fetchBookImage = (id) => {
@@ -37,6 +37,7 @@ class App extends Component {
             )
             .then(
                 (result) => {
+                    console.log(result)
                     var newImagePath = this.state.imagePath
                     var newImagePathItem = {}
                     newImagePathItem["id"] = id
@@ -50,14 +51,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-          <div><header className="App-header">
+
+            <header className="App-header">
               <h1 className = "title">{this.state.title}</h1>
               <h3 className = "subtitle">{this.state.subtitle}</h3>
               <h1 className="App-title">{this.state.apptitle}</h1>
-              <img src={logo} className="App-logo" alt="logo" />
-          </header></div>
+            </header>
 
-          <div style={{ background: '#ECECEC', padding: '30px', height:'100%' }}>
+          <body className="App-body">
             <Row>
                 <Col span={6}>
                     <Card
@@ -72,9 +73,9 @@ class App extends Component {
                         />
                     </Card>
                 </Col>
+
                 <Col span={18}>
-                
-                    <Card title={<div style={{fontSize:"30px", fontFamily: "KaiTi"}}>推荐书籍</div>} >
+                    <Card className = "recommendCard" title={<div style={{fontSize:"30px", fontFamily: "KaiTi", opacity:2}}>推荐书籍</div>} >
                         {
                             this.state.imagePath.map((item)=>{
                                 return <Card.Grid headStyle = {{fontSize : "100px"}} style={gridStyle}>
@@ -90,10 +91,9 @@ class App extends Component {
                             })
                         }
                     </Card>
-
                 </Col>
             </Row>
-          </div>
+          </body>
       </div>
     );
   }

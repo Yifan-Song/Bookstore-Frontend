@@ -9,14 +9,9 @@ var tempPrice = 0;
 
 const Search = Input.Search;
 
-const data = [{
-    key: '1',
-    bookname: 'Harry Potter and the Goblet of Fire',
-    price: 55,
-    author: 'J.K. Rowling',
-    year: 2000,
-    number: 2,
-}];
+function cancel(e) {
+    message.error('未下单');
+  }
 
 class EditableCell extends React.Component {
     state = {
@@ -70,8 +65,6 @@ class EditableCell extends React.Component {
     }
 }
 
-
-
 class Cart extends Component {
     constructor(props) {
         super(props);
@@ -89,7 +82,7 @@ class Cart extends Component {
         this.columns = [{
             title: 'BookName',
             dataIndex: 'bookname',
-            width: '25%',
+            width: '17%',
             filteredValue: this.state.searchText || null,
             onFilter: (filteredValue, record) => record.name.includes(filteredValue),
 
@@ -100,11 +93,6 @@ class Cart extends Component {
             width: '17%',
             sorter: (a, b) => b.author.length - a.author.length,
         },{
-            title: 'Year',
-            dataIndex: 'year',
-            width: '10%',
-            sorter: (a, b) => b.year - a.year,
-        },{
             title: 'Price(¥)',
             dataIndex: 'price',
             width: '15%',
@@ -112,7 +100,7 @@ class Cart extends Component {
         }, {
             title: 'number',
             dataIndex: 'number',
-            width: '10%',
+            width: '17%',
             sorter: (a, b) => b.number - a.number,
             render: (text, record) => (
                 <EditableCell
@@ -121,9 +109,22 @@ class Cart extends Component {
                 />
             ),
         },{
+            title: 'TotalPrice(¥)',
+            dataIndex: 'totalPrice',
+            width: '17%',
+            sorter: (a, b) => b.totalPrice - a.totalPrice,
+            render: (text, record) => {
+                var thisTotalPrice = record.price*100
+                thisTotalPrice *= record.number
+                thisTotalPrice /= 100
+                return (
+                    <p>{thisTotalPrice}</p>
+                )                    
+            },
+        },{
             title: 'Delete',
             dataIndex: 'delete',
-            width: '15%',
+            width: '17%',
             render: (text, record) => {
                 return (
                     this.state.dataSource.length >= 1 ?
@@ -141,13 +142,17 @@ class Cart extends Component {
     rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {
             console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-            tempPrice = 0;
+            var tempTotalPrice = 0;
+            var tempPrice = 0;
             for (let i in selectedRows)
             {
-                tempPrice += (selectedRows[i].price * selectedRows[i].number * 100)
+                tempPrice = selectedRows[i].price * 100
+                tempPrice *= selectedRows[i].number
+                tempTotalPrice += tempPrice
             }
-            this.setState({totalPrice: (tempPrice/100)});
-            this.setState({bluerows: selectedRows})
+
+            this.setState({totalPrice: (tempTotalPrice/100)});
+            this.setState({bluerows: selectedRows}) 
         },
         getCheckboxProps: record => ({
             disabled: record.name === 'Disabled User', // Column configuration not to be checked
@@ -158,6 +163,10 @@ class Cart extends Component {
 
     handleBalance = () => {
         let balancerows = this.state.bluerows;
+        var currentTime = new Date();
+        var timeStr = currentTime.toLocaleString;
+        var orderItemNum = balancerows.length
+        var count = 0
         for (let i in balancerows) {
             let record = balancerows[i];
             let msg = "userid=" + encodeURIComponent(cookies.get("userid")) +
@@ -168,7 +177,8 @@ class Cart extends Component {
                 "&author=" + encodeURIComponent(record.author) +
                 "&year=" + encodeURIComponent(record.year) +
                 "&number=" + encodeURIComponent(record.number) +
-                "&cacheid=" + encodeURIComponent(record.key);
+                "&cacheid=" + encodeURIComponent(record.key)
+
             fetch("http://localhost:8080/api/orders/add", {
                 method: 'POST',
                 credentials: 'include',
@@ -183,14 +193,44 @@ class Cart extends Component {
                 )
                 .then(
                     (result) => {
+                        count += 1
                         this.setState({bluerows:[]});
                         console.log("Orderitem added:")
                         console.log(result)
                     }
                 )
         }
-        message.success('购买成功！');
-        window.location.href = "http://localhost:3000"
+        var currentTime = new Date();
+        var timeStr = currentTime.toLocaleString();
+        let msg = "time=" + encodeURIComponent(timeStr)
+
+            var wait = setInterval(function(){
+                console.log(count)
+                if(count == orderItemNum){
+                    fetch("http://localhost:8080/api/orders/lock", {
+                        method: 'Post',
+                        credentials: 'include',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+                        },
+                        body: msg
+                    })
+                        .then(
+                            res => res.json()
+                        )
+                        .then(
+                            (result) => {
+                                console.log("Order locked:")
+                                console.log(result)
+                                message.success('下单成功！请尽快支付订单');//尚未处理错误返回的情况
+                                window.location.href = "http://localhost:3000/#/Order"
+                                clearInterval(wait)
+                            }
+                        )
+                }
+            },200)
+
     }
 
     fetchCart = () => {
@@ -395,8 +435,13 @@ class Cart extends Component {
                 <header><Icon type="shopping-cart" className="shopping-cart" style={{ fontSize: 60 }} /></header>,
                 <h1 className="Shopping-cart-title">Shopping Cart</h1>
                 <Table className = "table" bordered rowSelection={this.rowSelection} dataSource={dataSource} columns={columns} onChange={this.onChange} onDelete={this.onDelete} />
+                
                 <p className="price">总价：{this.state.totalPrice} 元</p>
-                <Button type={"primary"} className = "buy-button" onClick={ this.handleBalance }>结算</Button>
+
+                <Popconfirm  title="确认下单?" onConfirm={this.handleBalance} onCancel={cancel} okText="Yes" cancelText="No">
+                    <Button type={"primary"} className = "buy-button">下单</Button>
+                </Popconfirm>
+                
             </div>
         );
     }

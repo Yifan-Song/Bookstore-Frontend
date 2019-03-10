@@ -64,7 +64,7 @@ class Orders extends Component {
         this.columns = [{
             title: 'BookName',
             dataIndex: 'bookname',
-            width: '25%',
+            width: '14%',
             filteredValue: this.state.searchText || null,
             onFilter: (filteredValue, record) => record.name.includes(filteredValue),
 
@@ -72,22 +72,41 @@ class Orders extends Component {
         },{
             title: 'Author',
             dataIndex: 'author',
-            width: '17%',
+            width: '14%',
             sorter: (a, b) => b.author.length - a.author.length,
-        },{
-            title: 'Year',
-            dataIndex: 'year',
-            width: '10%',
-            sorter: (a, b) => b.year - a.year,
         },{
             title: 'Price(¥)',
             dataIndex: 'price',
-            width: '15%',
+            width: '14%',
             sorter: (a, b) => b.price - a.price,
         }, {
             title: 'number',
             dataIndex: 'number',
-            width: '10%',
+            width: '14%',
+            sorter: (a, b) => b.number - a.number,
+        },{
+            title: 'TotalPrice(¥)',
+            dataIndex: 'totalPrice',
+            width: '14%',
+            sorter: (a, b) => b.totalPrice - a.totalPrice,
+            render: (text, record) => {
+                var thisTotalPrice = record.price*100
+                thisTotalPrice *= record.number
+                thisTotalPrice /= 100
+                return (
+                    <p>{thisTotalPrice}</p>
+                )                    
+            },
+        },{
+            title: 'ordertime',
+            dataIndex: 'ordertime',
+            width: '14%',
+            sorter: (a, b) => b.number - a.number,
+        }
+        , {
+            title: 'paytime',
+            dataIndex: 'paytime',
+            width: '14%',
             sorter: (a, b) => b.number - a.number,
         }];
         this.cacheData = this.state.dataSource.map(item => ({ ...item }));
@@ -95,7 +114,7 @@ class Orders extends Component {
 
     fetchOrders = () => {
         let msg = "userid="+ encodeURIComponent(cookies.get("userid"));
-        fetch("http://localhost:8080/api/orders/get", {
+        fetch("http://localhost:8080/api/historyorders/get", {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -115,7 +134,6 @@ class Orders extends Component {
                 }
             )
     }
-
 
     onInputChange = (e) => {
         this.setState({ searchText: e.target.value });

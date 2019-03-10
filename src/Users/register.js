@@ -148,7 +148,7 @@ class RegistrationForm extends React.Component {
 
         return (
             <div>
-                <Icon type="user" className="userIcon" style={{ fontSize: 120 }} />
+                <Icon type="user-add" className="userIcon" style={{ fontSize: 120 }} />
                 <h1 style={{textAlign:"center"}}>Register</h1>
             <Form onSubmit={this.handleSubmit} className = "form">
                 <FormItem

@@ -1,6 +1,8 @@
 @import '~antd/dist/antd.css';
 
 .App {
+  background-image: url(https://up.enterdesk.com/edpic_source/db/ae/5d/dbae5df34ad33e988b29d08bafadd0bd.jpg);
+  background-size : 100%;
   text-align: center;
 }
 
@@ -15,7 +17,6 @@
 }
 
 .App-header {
-  background-color: #222;
   height: 300px;
   padding: 5px;
   color: white;
@@ -23,8 +24,8 @@
 }
 
 .App-title {
-  margin-right: 330px;
-  font-size: 4em;
+  margin-top: 5%;
+  font-size: 65px;
   color: aliceblue;
   font-family: KaiTi;
 }
@@ -42,18 +43,27 @@
   font-family: KaiTi;
 }
 
+.App-body{
+  background:rgba(255,255,255,0.7);
+  padding: '30px';
+  height:'100%';
+}
+
 .card{
+  opacity:0.9;
   float: left;
-  margin-top: 30px;
+  margin: 30px;
   font-family: KaiTi;
 }
 
-.recommend{
-  margin-left: 340px;
-  font-family: KaiTi;
+.recommendCard{
+  opacity:0.9;
+  margin: 30px;
+
 }
 
 .book{
+  opacity: 10;
   height: 320px;
   width: 220px;
 }

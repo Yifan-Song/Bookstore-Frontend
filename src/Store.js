@@ -8,7 +8,8 @@ import Cart from './Cart/Cart'
 import BookList from './BookList/BookList'
 import Book from './Books/Book'
 import User from './Users/User'
-import Orders from './Users/Orders'
+import HistoryOrders from './Users/HistoryOrders'
+import Order from './Orders/Order'
 import registerServiceWorker from './Users/registerServiceWorker';
 import RegistrationForm from './Users/register'
 import { Form } from 'antd';
@@ -91,7 +92,8 @@ class Store extends React.Component {
                     <Route path='/BookList' component={BookList} />
                     <Route path='/Book' component={Book} />
                     <Route path='/User' component={User} />
-                    <Route path='/Orders' component={Orders} />
+                    <Route path='/HistoryOrders' component={HistoryOrders} />
+                    <Route path='/Order' component={Order} />
                 </Switch>
             </div>
         )
