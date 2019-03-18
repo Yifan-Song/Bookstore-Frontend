@@ -13,6 +13,29 @@ function cancel(e) {
     message.error('未下单');
 }
 
+function encoder(msg){
+    var encoded = btoa(msg);
+    var newEncoded = ""
+    var newChar = ''
+
+    for(var i = 0; i < encoded.length; i++){
+        newChar = String.fromCharCode(encoded.charAt(i).charCodeAt()+cookies.get("userid"))
+        newEncoded += newChar
+    }
+    return newEncoded
+}
+
+function decoder(msg){
+    var newEncoded = ""
+    var newChar = ''
+    for(var i = 0; i < msg.length; i++){
+        newChar = String.fromCharCode(msg.charAt(i).charCodeAt()-cookies.get("userid"))
+        newEncoded += newChar
+    }
+    var decoded = atob(newEncoded)
+    return decoded
+}
+
 class Order extends Component {
     constructor(props) {
         super(props);
@@ -68,10 +91,11 @@ class Order extends Component {
     }
 
     handlePay = () => {
-
+        
         var currentTime = new Date();
         var timeStr = currentTime.toLocaleString();
-        let msg = "time=" + encodeURIComponent(timeStr)
+        let msg = "price="+ encodeURIComponent(encoder(this.state.totalPrice))
+        "time=" + encodeURIComponent(timeStr)
         fetch("http://localhost:8080/api/orders/pay", {
             method: 'Post',
             credentials: 'include',

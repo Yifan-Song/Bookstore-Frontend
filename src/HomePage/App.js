@@ -3,12 +3,43 @@ import logo from './logo.svg';
 import './App.css';
 import { Card, Icon, Avatar,Row,Col} from 'antd';
 import {Link } from 'react-router-dom';
+import { encode } from 'punycode';
+import Cookies from "universal-cookie";
+
+var cookies = new Cookies();
 const { Meta } = Card;
 const gridStyle = {
     width: '33.3%',
     textAlign: 'center',
   };
-  
+
+function encoder(msg){
+    var encoded = btoa(msg);
+    var newEncoded = ""
+    var newChar = ''
+    console.log(encoded)
+
+    //cookies.get("userid")
+    for(var i = 0; i < encoded.length; i++){
+        newChar = String.fromCharCode(encoded.charAt(i).charCodeAt()+2)
+        newEncoded += newChar
+    }
+    console.log(newEncoded)
+    return newEncoded
+}
+
+function decoder(msg){
+    var newEncoded = ""
+    var newChar = ''
+    for(var i = 0; i < msg.length; i++){
+        newChar = String.fromCharCode(msg.charAt(i).charCodeAt()-2)
+        newEncoded += newChar
+        //console.log(newChar)
+    }
+    console.log(atob(newEncoded))
+    return atob(newEncoded)
+}
+
 class App extends Component {
 
     constructor(props) {
@@ -49,6 +80,7 @@ class App extends Component {
     }
 
   render() {
+
     return (
       <div className="App">
 
