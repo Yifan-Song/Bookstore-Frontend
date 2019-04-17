@@ -229,7 +229,7 @@ class Cart extends Component {
                             }
                         )
                 }
-            },200)
+            },2000)
 
     }
 
@@ -382,7 +382,6 @@ class Cart extends Component {
             year: null,
             author: 'Blank',
             price: null,
-            //address: `London, Park Lane no. ${count}`,
         };
         this.setState({
             dataSource: [...dataSource, newData],
@@ -425,7 +424,6 @@ class Cart extends Component {
             this.setState({ data: newData });
         }
     }
-
 
     render() {
         const { dataSource } = this.state;

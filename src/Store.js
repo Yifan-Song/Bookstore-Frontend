@@ -10,6 +10,8 @@ import Book from './Books/Book'
 import User from './Users/User'
 import HistoryOrders from './Users/HistoryOrders'
 import Order from './Orders/Order'
+import ChatRoom from './ChatRoom/ChatRoom'
+import PrivateChatRoom from './ChatRoom/PrivateChatRoom'
 import registerServiceWorker from './Users/registerServiceWorker';
 import RegistrationForm from './Users/register'
 import { Form } from 'antd';
@@ -21,8 +23,6 @@ import Cookies from 'universal-cookie'
 const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
 const WrappedRegistrationForm = Form.create()(RegistrationForm);
 var cookies = new Cookies();
-
-
 
 class Store extends React.Component {
     constructor(props) {
@@ -40,12 +40,15 @@ class Store extends React.Component {
         }
     }
 
-    LoginSuccessHandler = (userid, role) => {
+    LoginSuccessHandler = (userid, username, role) => {
         cookies.set("login",true,{path : '/'});
         cookies.set("role",role,{path : '/'});
         cookies.set("userid",userid,{path : '/'});
+        cookies.set("username",username,{path : '/'});
         window.location.href = "http://localhost:3000"
-        this.setState({userid: userid,
+        this.setState({
+            username: username,
+            userid: userid,
             role:role,
             login:true,
         })
@@ -94,6 +97,8 @@ class Store extends React.Component {
                     <Route path='/User' component={User} />
                     <Route path='/HistoryOrders' component={HistoryOrders} />
                     <Route path='/Order' component={Order} />
+                    <Route path='/ChatRoom' component={ChatRoom} />
+                    <Route path='/PrivateChatRoom' component={PrivateChatRoom} />
                 </Switch>
             </div>
         )

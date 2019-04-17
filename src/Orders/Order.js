@@ -19,8 +19,11 @@ function encoder(msg){
     var newChar = ''
 
     for(var i = 0; i < encoded.length; i++){
-        newChar = String.fromCharCode(encoded.charAt(i).charCodeAt()+cookies.get("userid"))
+
+        newChar = String.fromCharCode(parseInt(encoded.charAt(i).charCodeAt())+parseInt(cookies.get("userid")))
         newEncoded += newChar
+
+
     }
     return newEncoded
 }
@@ -91,11 +94,12 @@ class Order extends Component {
     }
 
     handlePay = () => {
-        
         var currentTime = new Date();
         var timeStr = currentTime.toLocaleString();
-        let msg = "price="+ encodeURIComponent(encoder(this.state.totalPrice))
-        "time=" + encodeURIComponent(timeStr)
+        console.log(this.state.totalPrice)
+        console.log(encoder(this.state.totalPrice))
+        let msg = "price="+ encodeURIComponent(encoder(this.state.totalPrice)) + "&time=" + encodeURIComponent(timeStr)
+        console.log("msg:"+msg)
         fetch("http://localhost:8080/api/orders/pay", {
             method: 'Post',
             credentials: 'include',

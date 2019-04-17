@@ -20,7 +20,9 @@ class User extends Component {
             address: "",
             role: ""
         }
+        this.searchBlog()
     }
+
     fetchUser = () => {
         let msg = "userid="+ encodeURIComponent(cookies.get("userid"));
         fetch("http://localhost:8080/api/users/get", {
@@ -40,6 +42,70 @@ class User extends Component {
                     console.log("User fetched:")
                     console.log(result)
                     this.setState(result)
+                }
+            )
+    }
+
+    addFriend = () =>{
+        fetch("http://localhost:8080/api/neoTest", {
+            method: 'Get',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+        })
+            .then(
+                res => res.json()
+            )
+            .then(
+                (result) => {
+                    console.log("User fetched:")
+                    console.log(result)
+                    this.setState(result)
+                }
+            )
+    }
+
+    addBlog = () =>{
+        fetch("http://127.0.0.1:9200/blog/userBlog/", {
+            method: 'Post',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=utf-8'
+            },
+        })
+            .then(
+                res => res.json()
+            )
+            .then(
+                (result) => {
+                    console.log("User fetched:")
+                    console.log(result)
+                    this.setState(result)
+                }
+            )
+    }
+
+    searchBlog = () =>{
+        fetch("http://127.0.0.1:9200/test/_search?", {
+            method: 'Post',
+            mode: "cors",    
+            credentials: 'omit',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify({query : {match : { bookname: "小" }}})
+        })
+            .then(
+                res => res.json()
+            )
+            .then(
+                (result) => {
+                    console.log("Blog fetched:")
+                    console.log(result)
                 }
             )
     }
@@ -64,11 +130,14 @@ class User extends Component {
                     </Card>
                 </Row>
                 <Row>
-                    <Col span={4}  offset={8}>
+                    <Col span={4}  offset={7}>
                         <Link to={'/HistoryOrders'}><Button type="primary" className="orderButton">History Orders</Button></Link>
                     </Col>
-                    <Col span={4} offset={2}>
+                    <Col span={4}>
                         <Link to={'/HistoryOrders'}><Button type="primary" className="favoriteButton">Favorite</Button></Link> 
+                    </Col>
+                    <Col span={4}>
+                        <Button type="primary" className="favoriteButton" onClick={this.addFriend}>Add Friend</Button>
                     </Col>
                 </Row>
                 <br/>

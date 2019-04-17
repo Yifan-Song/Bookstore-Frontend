@@ -76,8 +76,13 @@ class Head extends React.Component {
                             <Menu.Item key="manage">
                                 <Link to={'/Admin'}><Icon type="setting"/>管理</Link>
                             </Menu.Item>
+
+                            <Menu.Item key="chatRoom">
+                                <Link to={'/ChatRoom'}><Icon type="message"/>聊天室</Link>
+                            </Menu.Item>
+
                             <Menu.Item key="logout">
-                                <Icon type="logout"onClick={this.handleLogout}>注销</Icon>
+                                <Icon type="logout"  style = {{color:"red"}} onClick={this.handleLogout}>注销</Icon>
                             </Menu.Item>
                         </Menu></div>
                 );
@@ -106,6 +111,9 @@ class Head extends React.Component {
                             </Menu.Item>
                             <Menu.Item key="order-to-pay">
                                 <Link to={'/Order'}><Icon type="pay-circle" />待支付订单</Link>
+                            </Menu.Item>
+                            <Menu.Item key="chatRoom">
+                                <Link to={'/ChatRoom'}><Icon type="message"/>聊天室</Link>
                             </Menu.Item>
                             <Menu.Item key="logout">
                                 <Icon type="logout" style = {{color:"red"}} onClick={this.handleLogout}/>注销

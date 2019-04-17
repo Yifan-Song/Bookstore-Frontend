@@ -19,7 +19,7 @@ const tabListNoTitle = [{
 
 function cancel(e) {
     message.error('未添加购物车');
-  }
+}
   
 class Book extends Component{
     constructor(props) {

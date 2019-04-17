@@ -50,7 +50,7 @@ class NormalLoginForm extends React.Component {
                 (result) =>{
                     if(result.status === "ok") {
                         message.success("Login successful!")
-                        this.LoginSuccessHandler(result.user.userid, result.role)
+                        this.LoginSuccessHandler(result.user.userid, result.user.username, result.role)
                         this.setState(
                             {userid: result.user.userid,
                             role:result.role,
